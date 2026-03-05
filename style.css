@@ -45,7 +45,7 @@ body {
 #app {
     width: 100%;
     max-width: 1100px;
-    padding: 2rem;
+    padding: 1.5rem;
     position: relative;
     z-index: 1;
 }
@@ -56,19 +56,19 @@ body {
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid var(--glass-border);
-    border-radius: 24px;
-    padding: 3rem;
+    border-radius: 20px;
+    padding: 2.5rem;
     box-shadow: var(--shadow);
     display: grid;
     grid-template-columns: 1.2fr 0.8fr;
-    gap: 3rem;
+    gap: 2.5rem;
     animation: fadeIn 0.8s ease-out;
 }
 
 @keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(15px);
     }
 
     to {
@@ -79,14 +79,14 @@ body {
 
 .header {
     grid-column: 1 / -1;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     border-bottom: 1px solid var(--glass-border);
-    padding-bottom: 1.5rem;
+    padding-bottom: 1rem;
 }
 
 h1 {
     font-family: 'Outfit', sans-serif;
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     font-weight: 700;
     background: linear-gradient(135deg, #FFF 0%, var(--primary-light) 100%);
     -webkit-background-clip: text;
@@ -97,112 +97,108 @@ h1 {
 
 .expert-tag {
     display: inline-block;
-    padding: 0.4rem 1rem;
+    padding: 0.3rem 0.8rem;
     background: rgba(139, 92, 246, 0.1);
     color: var(--primary-light);
     border-radius: 99px;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    margin-bottom: 1rem;
+    margin-bottom: 0.8rem;
 }
 
 .category-tabs {
     display: flex;
-    gap: 0.5rem;
-    margin-top: 1.5rem;
+    gap: 0.4rem;
+    margin-top: 1rem;
     background: rgba(0, 0, 0, 0.2);
-    padding: 0.3rem;
-    border-radius: 14px;
+    padding: 0.25rem;
+    border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .tab-btn {
     flex: 1;
-    padding: 0.7rem;
+    padding: 0.6rem;
     border: none;
     background: transparent;
     color: var(--text-dim);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 600;
     cursor: pointer;
-    border-radius: 10px;
+    border-radius: 9px;
     transition: all 0.3s ease;
 }
 
 .tab-btn.active {
     background: var(--primary);
     color: white;
-    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
-}
-
-.tab-btn:hover:not(.active) {
-    background: rgba(255, 255, 255, 0.05);
-    color: white;
+    box-shadow: 0 4px 10px rgba(139, 92, 246, 0.25);
 }
 
 /* Layout Utilities */
 .grid-2-col {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1rem;
+    gap: 0.8rem;
 }
 
 .grid-dur-current {
     display: grid;
     grid-template-columns: 1.2fr 0.8fr;
-    gap: 1rem;
+    gap: 0.8rem;
 }
 
 .duration-input-group {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    margin-top: 0.2rem;
+    gap: 0.4rem;
 }
 
 .inf-label {
-    font-size: 0.8rem;
-    /* Slightly larger for touch */
+    font-size: 0.75rem;
     display: flex;
     align-items: center;
-    gap: 0.3rem;
+    gap: 0.25rem;
     cursor: pointer;
     color: var(--text-dim);
     white-space: nowrap;
-    /* Prevent wrapping */
     flex-shrink: 0;
-    /* Don't squash me */
 }
 
 .expert-section {
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding-top: 1.5rem;
-    margin-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 1.2rem;
+    margin-top: 0.8rem;
 }
 
 .expert-header {
     color: var(--accent);
-    font-size: 0.8rem;
-    margin-bottom: 1rem;
+    font-size: 0.75rem;
+    margin-bottom: 0.8rem;
     text-transform: uppercase;
 }
 
 .chart-card {
-    margin-top: 1.5rem;
+    margin-top: 1rem;
     background: rgba(0, 0, 0, 0.2);
-    padding: 1.2rem;
-    border-radius: 12px;
+    padding: 1rem;
+    border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
+.chart-wrapper {
+    height: 200px;
+    position: relative;
+}
+
 .thermal-stats-grid {
-    margin-top: 1rem;
+    margin-top: 0.8rem;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    gap: 0.5rem;
-    font-size: 0.7rem;
+    gap: 0.4rem;
+    font-size: 0.65rem;
     color: var(--text-dim);
     text-align: center;
 }
@@ -211,75 +207,65 @@ h1 {
 .input-section {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1.2rem;
 }
 
 .result-section {
     background: rgba(0, 0, 0, 0.2);
-    border-radius: 20px;
-    padding: 2rem;
+    border-radius: 16px;
+    padding: 1.5rem;
     border: 1px solid rgba(255, 255, 255, 0.05);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
 }
 
 /* Form Styles */
 .field {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.4rem;
 }
 
 label {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 500;
     color: var(--text-dim);
 }
 
 input,
 select {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.04);
     border: 1px solid var(--glass-border);
-    border-radius: 12px;
-    padding: 0.8rem 1rem;
+    border-radius: 10px;
+    padding: 0.65rem 0.9rem;
     color: white;
-    font-size: 1rem;
+    font-size: 0.95rem;
     width: 100%;
-    /* Ensure inputs don't overflow */
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.2s ease;
 }
 
 input:focus,
 select:focus {
     outline: none;
     border-color: var(--primary);
-    background: rgba(255, 255, 255, 0.08);
-    box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.15);
-}
-
-select option {
-    background-color: #1e293b;
-    color: white;
+    background: rgba(255, 255, 255, 0.07);
 }
 
 .calculate-btn {
     background: linear-gradient(135deg, var(--primary) 0%, #7C3AED 100%);
     color: white;
     border: none;
-    border-radius: 12px;
-    padding: 1.2rem;
-    font-size: 1.1rem;
+    border-radius: 10px;
+    padding: 1rem;
+    font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s;
-    margin-top: 1rem;
-    box-shadow: 0 10px 15px -3px rgba(124, 58, 237, 0.37);
+    transition: all 0.2s;
+    margin-top: 0.5rem;
+    box-shadow: 0 8px 12px -3px rgba(124, 58, 237, 0.3);
 }
 
 .calculate-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 20px 25px -5px rgba(124, 58, 237, 0.4);
+    transform: translateY(-1px);
+    box-shadow: 0 12px 16px -3px rgba(124, 58, 237, 0.35);
 }
 
 .result-box {
@@ -287,44 +273,44 @@ select option {
 }
 
 .result-value {
-    font-size: 4rem;
+    font-size: 3.5rem;
     font-weight: 800;
     font-family: 'Outfit';
     color: var(--success);
     line-height: 1;
-    margin: 1rem 0;
+    margin: 0.8rem 0;
 }
 
 .unit {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: var(--text-dim);
-    font-weight: 400;
 }
 
 .insight-box {
-    margin-top: 2rem;
-    padding-top: 2rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .insight-box h3 {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     text-transform: uppercase;
     color: var(--accent);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.4rem;
 }
 
 .insight-box p {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     color: var(--text-dim);
-    line-height: 1.6;
+    line-height: 1.5;
 }
 
 /* Responsive Extensions */
 @media (max-width: 900px) {
     .calculator-card {
         grid-template-columns: 1fr;
-        padding: 2.5rem;
+        padding: 2rem;
+        gap: 2rem;
     }
 }
 
@@ -335,82 +321,87 @@ select option {
 
     #app {
         padding: 0;
-        width: 100%;
-        max-width: 100vw;
     }
 
     .calculator-card {
-        padding: 1.5rem 1rem;
+        padding: 1.2rem 1rem;
         border-radius: 0;
-        gap: 1.5rem;
+        gap: 1.2rem;
         border: none;
-        width: 100%;
-        box-shadow: none;
         background: var(--background);
-        /* Solidify for mobile to avoid blending issues */
     }
 
     .header {
-        margin-bottom: 1.5rem;
-        padding-bottom: 1.2rem;
-        border-bottom-color: rgba(255, 255, 255, 0.05);
+        margin-bottom: 1rem;
+        padding-bottom: 0.8rem;
     }
 
     h1 {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
     }
 
     .grid-2-col,
     .grid-dur-current {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
+        gap: 1.2rem;
     }
 
-    .result-section {
-        padding: 1.5rem 1rem;
-        margin-top: 2rem;
-        border-radius: 0;
-        border-left: none;
-        border-right: none;
-        background: rgba(255, 255, 255, 0.03);
-        /* Subtle light gray shading instead of dark */
-    }
-
-    .result-value {
-        font-size: 3.5rem;
-    }
-
-    .chart-card {
-        padding: 1rem 0.5rem;
-        border-radius: 0;
-        border-left: none;
-        border-right: none;
-        background: transparent;
-    }
-
-    .thermal-stats-grid {
-        grid-template-columns: 1fr;
+    .field {
         gap: 0.3rem;
-        text-align: left;
-        padding-left: 0.5rem;
+    }
+
+    label {
+        font-size: 0.78rem;
     }
 
     input,
     select,
     .calculate-btn {
-        padding: 1.1rem;
-        font-size: 1rem;
+        padding: 0.9rem;
+        font-size: 0.95rem;
     }
 
-    /* Duration field specific fix */
-    .duration-input-group input {
-        width: auto;
-        /* Reset 100% width to allow flex-grow */
-        min-width: 0;
+    .result-section {
+        padding: 1.2rem 1rem;
+        margin-top: 1.5rem;
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
+        background: rgba(255, 255, 255, 0.02);
+    }
+
+    .result-value {
+        font-size: 3rem;
+    }
+
+    .chart-card {
+        padding: 0.8rem 0;
+        margin-top: 1rem;
+    }
+
+    .chart-wrapper {
+        height: 150px !important;
+    }
+
+    .thermal-stats-grid {
+        grid-template-columns: 1fr 1fr 1fr;
+        /* Stay horizontal but smaller */
+        gap: 0.2rem;
+        text-align: center;
+        padding-left: 0;
+    }
+
+    .thermal-stats-grid div {
+        font-size: 0.6rem;
     }
 
     .tab-btn {
-        padding: 0.8rem 0.5rem;
-        font-size: 0.85rem;
+        padding: 0.7rem 0.4rem;
+        font-size: 0.8rem;
+    }
+
+    .expert-tag {
+        font-size: 0.7rem;
+        margin-bottom: 0.6rem;
     }
 }
