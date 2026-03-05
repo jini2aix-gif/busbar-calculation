@@ -19,6 +19,11 @@
     box-sizing: border-box;
 }
 
+html {
+    overflow-x: hidden;
+    width: 100%;
+}
+
 body {
     font-family: 'Inter', sans-serif;
     background-color: var(--background);
@@ -34,6 +39,7 @@ body {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
+    width: 100%;
 }
 
 #app {
@@ -136,7 +142,67 @@ h1 {
     color: white;
 }
 
-/* Layout */
+/* Layout Utilities */
+.grid-2-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.grid-dur-current {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 1rem;
+}
+
+.duration-input-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.2rem;
+}
+
+.inf-label {
+    font-size: 0.7rem;
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    cursor: pointer;
+    color: var(--text-dim);
+}
+
+.expert-section {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 1.5rem;
+    margin-top: 1rem;
+}
+
+.expert-header {
+    color: var(--accent);
+    font-size: 0.8rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}
+
+.chart-card {
+    margin-top: 1.5rem;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 1.2rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.thermal-stats-grid {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.5rem;
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    text-align: center;
+}
+
+/* Main Sections */
 .input-section {
     display: flex;
     flex-direction: column;
@@ -174,6 +240,8 @@ select {
     padding: 0.8rem 1rem;
     color: white;
     font-size: 1rem;
+    width: 100%;
+    /* Ensure inputs don't overflow */
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -258,7 +326,6 @@ select option {
 @media (max-width: 640px) {
     body {
         display: block;
-        /* Standard scroll behavior for mobile */
     }
 
     #app {
@@ -271,45 +338,67 @@ select option {
         padding: 1.5rem 1rem;
         border-radius: 0;
         gap: 1.5rem;
-        border-left: none;
-        border-right: none;
+        border: none;
         width: 100%;
         box-shadow: none;
-        /* Cleaner look for edge-to-edge */
+        background: var(--background);
+        /* Solidify for mobile to avoid blending issues */
     }
 
     .header {
         margin-bottom: 1.5rem;
         padding-bottom: 1.2rem;
+        border-bottom-color: rgba(255, 255, 255, 0.05);
     }
 
     h1 {
-        font-size: 1.7rem;
+        font-size: 1.8rem;
     }
 
-    .expert-tag {
-        font-size: 0.72rem;
-        padding: 0.3rem 0.8rem;
+    .grid-2-col,
+    .grid-dur-current {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
 
     .result-section {
-        padding: 1.2rem;
-        margin-top: 1rem;
+        padding: 1.5rem 1rem;
+        margin-top: 2rem;
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
+        background: rgba(255, 255, 255, 0.03);
+        /* Subtle light gray shading instead of dark */
     }
 
     .result-value {
-        font-size: 3.2rem;
+        font-size: 3.5rem;
+    }
+
+    .chart-card {
+        padding: 1rem 0.5rem;
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
+        background: transparent;
+    }
+
+    .thermal-stats-grid {
+        grid-template-columns: 1fr;
+        gap: 0.3rem;
+        text-align: left;
+        padding-left: 0.5rem;
     }
 
     input,
     select,
     .calculate-btn {
-        padding: 1rem;
+        padding: 1.1rem;
         font-size: 1rem;
     }
 
     .tab-btn {
-        padding: 0.7rem;
-        font-size: 0.9rem;
+        padding: 0.8rem 0.5rem;
+        font-size: 0.85rem;
     }
 }

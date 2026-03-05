@@ -25,151 +25,145 @@
             </div>
 
             <div class="input-section">
-                <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 1rem;">
-                    <div class="field">
-                        <label for="current">부하 전류 (Load Current, Arms)</label>
-                        <input type="number" id="current" value="250" step="10">
-                    </div>
-                    <div class="field">
-                        <label for="duration">부하 시간 (Duration, sec)</label>
-                        <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.2rem;">
-                            <input type="number" id="duration" value="3600" min="1" style="flex: 1;">
-                            <label
-                                style="font-size: 0.7rem; display: flex; align-items: center; gap: 0.2rem; cursor: pointer; color: var(--text-dim);">
-                                <input type="checkbox" id="continuous" checked> 무한(Inf)
-                            </label>
+                <div class="input-section">
+                    <div class="grid-dur-current">
+                        <div class="field">
+                            <label for="current">부하 전류 (Load Current, Arms)</label>
+                            <input type="number" id="current" value="250" step="10">
+                        </div>
+                        <div class="field">
+                            <label for="duration">부하 시간 (Duration, sec)</label>
+                            <div class="duration-input-group">
+                                <input type="number" id="duration" value="3600" min="1" style="flex: 1;">
+                                <label class="inf-label">
+                                    <input type="checkbox" id="continuous" checked> 무한(Inf)
+                                </label>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                    <div class="field">
-                        <label for="ambient">주변 온도 (Ambient, °C)</label>
-                        <input type="number" id="ambient" value="45" step="5">
+                    <div class="grid-2-col">
+                        <div class="field">
+                            <label for="ambient">주변 온도 (Ambient, °C)</label>
+                            <input type="number" id="ambient" value="45" step="5">
+                        </div>
+                        <div class="field">
+                            <label for="limit">목표 온도 상승량 (ΔT, °C)</label>
+                            <input type="number" id="limit" value="40" step="1">
+                        </div>
                     </div>
+
                     <div class="field">
-                        <label for="limit">목표 온도 상승량 (ΔT, °C)</label>
-                        <input type="number" id="limit" value="40" step="1">
-                    </div>
-                </div>
-
-                <div class="field">
-                    <label for="material">도체 소재 (Conductor)</label>
-                    <select id="material">
-                        <option value="C1100">C1100 (Copper - 100% IACS)</option>
-                        <option value="C1020">C1020 (OFC - 101% IACS)</option>
-                        <option value="Aluminum">Aluminum (61% IACS)</option>
-                    </select>
-                </div>
-
-                <div class="field">
-                    <label for="plating">표면 처리 및 절연 (Surface & Insulation)</label>
-                    <select id="plating">
-                        <option value="bare">Bare Copper (Low e: 0.4)</option>
-                        <option value="tin">Tin Plated (Low e: 0.2)</option>
-                        <option value="silver">Silver Plated (Low e: 0.05)</option>
-                        <option value="nickel">Nickel Plated (Low e: 0.2)</option>
-                        <option value="heat-shrink">PVC Heat-shrink Tubing (High e: 0.9)</option>
-                        <option value="epoxy">Epoxy Powder Coating (High e: 0.95)</option>
-                    </select>
-                </div>
-
-                <div class="field">
-                    <label for="aspect-ratio">버스바 종횡비 (Aspect Ratio, W:T)</label>
-                    <input type="number" id="aspect-ratio" value="5" min="1" max="25" step="1">
-                    <small style="color:var(--text-dim); font-size:0.75rem;">※ 가로:두께 비율 (높을수록 방열 효율 증가)</small>
-                </div>
-
-
-
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                    <div class="field">
-                        <label for="cooling">패키지 밀폐도 (IP Rating)</label>
-                        <select id="cooling">
-                            <option value="1.0">External Open (외기 노출)</option>
-                            <option value="0.85">IP20/IP54 (통풍 박스 내부)</option>
-                            <option value="0.7">IP67 (완전 밀폐 BDU/팩 내부)</option>
+                        <label for="material">도체 소재 (Conductor)</label>
+                        <select id="material">
+                            <option value="C1100">C1100 (Copper - 100% IACS)</option>
+                            <option value="C1020">C1020 (OFC - 101% IACS)</option>
+                            <option value="Aluminum">Aluminum (61% IACS)</option>
                         </select>
                     </div>
+
                     <div class="field">
-                        <label for="mounting">배치 방향 (Orientation)</label>
-                        <select id="mounting">
-                            <option value="1.0">수직 (Edge-wise Vertical)</option>
-                            <option value="0.85">수평 (Flat-wise Horizontal)</option>
+                        <label for="plating">표면 처리 및 절연 (Surface & Insulation)</label>
+                        <select id="plating">
+                            <option value="bare">Bare Copper (Low e: 0.4)</option>
+                            <option value="tin">Tin Plated (Low e: 0.2)</option>
+                            <option value="silver">Silver Plated (Low e: 0.05)</option>
+                            <option value="nickel">Nickel Plated (Low e: 0.2)</option>
+                            <option value="heat-shrink">PVC Heat-shrink Tubing (High e: 0.9)</option>
+                            <option value="epoxy">Epoxy Powder Coating (High e: 0.95)</option>
                         </select>
                     </div>
-                </div>
 
-                <div class="field">
-                    <label for="altitude">설치 고도 (Altitude, m)</label>
-                    <input type="number" id="altitude" value="0" min="0" max="8000" step="100">
-                </div>
-
-                <!-- PRA / BDU Specific Section -->
-                <div id="pra-section"
-                    style="display: none; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem; margin-top: 0.5rem;">
-                    <h4
-                        style="color: var(--accent); font-size: 0.8rem; margin-bottom: 1rem; text-transform: uppercase;">
-                        Passive Component Heat (PRA/BDU 전용)</h4>
-
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                        <div class="field">
-                            <label for="relays">릴레이 개수 (0.5mΩea)</label>
-                            <input type="number" id="relays" value="2" min="0">
-                        </div>
-                        <div class="field">
-                            <label for="fuses">퓨즈 개수 (PEC)</label>
-                            <input type="number" id="fuses" value="1" min="0">
-                        </div>
+                    <div class="field">
+                        <label for="aspect-ratio">버스바 종횡비 (Aspect Ratio, W:T)</label>
+                        <input type="number" id="aspect-ratio" value="5" min="1" max="25" step="1">
+                        <small style="color:var(--text-dim); font-size:0.75rem;">※ 가로:두께 비율 (높을수록 방열 효율 증가)</small>
                     </div>
 
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="grid-2-col">
                         <div class="field">
-                            <label for="bdu-width">BDU 가로 (Width, mm)</label>
-                            <input type="number" id="bdu-width" value="300" min="50">
+                            <label for="cooling">패키지 밀폐도 (IP Rating)</label>
+                            <select id="cooling">
+                                <option value="1.0">External Open (외기 노출)</option>
+                                <option value="0.85">IP20/IP54 (통풍 박스 내부)</option>
+                                <option value="0.7">IP67 (완전 밀폐 BDU/팩 내부)</option>
+                            </select>
                         </div>
                         <div class="field">
-                            <label for="bdu-depth">BDU 세로 (Depth, mm)</label>
-                            <input type="number" id="bdu-depth" value="250" min="50">
-                        </div>
-                    </div>
-
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                        <div class="field">
-                            <label for="bdu-height">BDU 높이 (Height, mm)</label>
-                            <input type="number" id="bdu-height" value="100" min="30">
-                        </div>
-                        <div class="field">
-                            <label for="bdu-material">BDU 케이스 재질</label>
-                            <select id="bdu-material">
-                                <option value="aluminum">Aluminum (High Heat Diss.)</option>
-                                <option value="plastic">Plastic (Insulated/Sealed)</option>
+                            <label for="mounting">배치 방향 (Orientation)</label>
+                            <select id="mounting">
+                                <option value="1.0">수직 (Edge-wise Vertical)</option>
+                                <option value="0.85">수평 (Flat-wise Horizontal)</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="field">
-                        <label for="fuse-rating">퓨즈 용량 선택 (A) - PEC EV Series</label>
-                        <select id="fuse-rating">
-                            <option value="50">50A (2.00 mΩ)</option>
-                            <option value="100">100A (0.75 mΩ)</option>
-                            <option value="200">200A (0.39 mΩ)</option>
-                            <option value="300">300A (0.25 mΩ)</option>
-                            <option value="400">400A (0.19 mΩ)</option>
-                            <option value="500">500A (0.16 mΩ)</option>
-                            <option value="600">600A (0.14 mΩ)</option>
-                            <option value="800">800A (0.10 mΩ)</option>
-                            <option value="1000">1000A (0.088 mΩ)</option>
-                        </select>
+                        <label for="altitude">설치 고도 (Altitude, m)</label>
+                        <input type="number" id="altitude" value="0" min="0" max="8000" step="100">
                     </div>
+
+                    <!-- PRA / BDU Specific Section -->
+                    <div id="pra-section" class="expert-section">
+                        <h4 class="expert-header">Passive Component Heat (PRA/BDU 전용)</h4>
+
+                        <div class="grid-2-col">
+                            <div class="field">
+                                <label for="relays">릴레이 개수 (0.5mΩea)</label>
+                                <input type="number" id="relays" value="2" min="0">
+                            </div>
+                            <div class="field">
+                                <label for="fuses">퓨즈 개수 (PEC)</label>
+                                <input type="number" id="fuses" value="1" min="0">
+                            </div>
+                        </div>
+
+                        <div class="grid-2-col">
+                            <div class="field">
+                                <label for="bdu-width">BDU 가로 (Width, mm)</label>
+                                <input type="number" id="bdu-width" value="300" min="50">
+                            </div>
+                            <div class="field">
+                                <label for="bdu-depth">BDU 세로 (Depth, mm)</label>
+                                <input type="number" id="bdu-depth" value="250" min="50">
+                            </div>
+                        </div>
+
+                        <div class="grid-2-col">
+                            <div class="field">
+                                <label for="bdu-height">BDU 높이 (Height, mm)</label>
+                                <input type="number" id="bdu-height" value="100" min="30">
+                            </div>
+                            <div class="field">
+                                <label for="bdu-material">BDU 케이스 재질</label>
+                                <select id="bdu-material">
+                                    <option value="aluminum">Aluminum (High Heat Diss.)</option>
+                                    <option value="plastic">Plastic (Insulated/Sealed)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label for="fuse-rating">퓨즈 용량 선택 (A) - PEC EV Series</label>
+                            <select id="fuse-rating">
+                                <option value="50">50A (2.00 mΩ)</option>
+                                <option value="100">100A (0.75 mΩ)</option>
+                                <option value="200">200A (0.39 mΩ)</option>
+                                <option value="300">300A (0.25 mΩ)</option>
+                                <option value="400">400A (0.19 mΩ)</option>
+                                <option value="500">500A (0.16 mΩ)</option>
+                                <option value="600">600A (0.14 mΩ)</option>
+                                <option value="800">800A (0.10 mΩ)</option>
+                                <option value="1000">1000A (0.088 mΩ)</option>
+                            </select>
+                        </div>
+                    </div>
+
                 </div>
 
                 <!-- Automotive Standard Reliability Section (Hidden Pro Factors) -->
-                <div id="automotive-section"
-                    style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem; margin-top: 1rem;">
-                    <h4
-                        style="color: var(--accent); font-size: 0.8rem; margin-bottom: 1rem; text-transform: uppercase;">
-                        Automotive Design Standard</h4>
+                <div id="automotive-section" class="expert-section">
+                    <h4 class="expert-header">Automotive Design Standard</h4>
 
                     <div class="field">
                         <label for="line-len">버스바 경로 총 길이 (Path Length, m)</label>
@@ -191,15 +185,13 @@
                 </div>
 
                 <!-- Moved Temperature Rise Graph Section (Between Result and Insight) -->
-                <div id="graph-container"
-                    style="margin-top: 1.5rem; background: rgba(0,0,0,0.2); padding: 1.2rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
+                <div id="graph-container" class="chart-card">
                     <h3 style="color: var(--accent); font-size: 0.85rem; margin-bottom: 0.8rem;">Temperature Saturation
                         Profile</h3>
                     <div style="height: 220px; position: relative;">
                         <canvas id="tempChart"></canvas>
                     </div>
-                    <div id="thermal-stats"
-                        style="margin-top: 1rem; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem; font-size: 0.7rem; color: var(--text-dim); text-align: center;">
+                    <div id="thermal-stats" class="thermal-stats-grid">
                         <div>열 시상수(τ): <span id="tau-val" style="color: var(--text);">0</span>s</div>
                         <div>평형(5τ): <span id="sat-time" style="color: var(--text);">0</span>min</div>
                         <div>포화 온도: <span id="sat-temp" style="color: var(--text);">0</span>°C</div>
