@@ -313,15 +313,14 @@ function displayLoadFirstInsight(i, final, a_th, a_vd, a_sc, isOverTemp, dt_limi
         </p>`;
     }
 
-    html += `<div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem; margin-top:1rem; font-size:0.75rem; background:rgba(255,255,255,0.05); padding:0.8rem; border-radius:8px;">
-        <span>결정적 요인:</span> <span style="text-align:right; font-weight:bold; color:var(--accent);">${a_th > a_vd ? '연속 부하 발열' : '전압 강하'}</span>
-        <span>설계 종횡비:</span> <span style="text-align:right;">${ar}:1</span>
-        <span>전류 밀도:</span> <span style="text-align:right;">${cd} A/mm²</span>
-        <span>열평형 도달(95%):</span> <span style="text-align:right; color:#FFD700; font-weight:bold;">약 ${eq_time_min.toFixed(1)}분</span>
-        <span>안전 계수:</span> <span style="text-align:right;">x1.15</span>
+    html += `<div class="thermal-stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); text-align: left; background:rgba(255,255,255,0.05); padding:0.8rem; border-radius:8px; gap:0.5rem; margin-top:1rem;">
+        <div><span>결정적 요인:</span> <strong style="color:var(--accent); float:right;">${a_th > a_vd ? '연속 부하 발열' : '전압 강하'}</strong></div>
+        <div><span>설계 종횡비:</span> <span style="float:right;">${ar}:1</span></div>
+        <div><span>전류 밀도:</span> <span style="float:right;">${cd} A/mm²</span></div>
+        <div><span>열평형 도달:</span> <strong style="color:#FFD700; float:right;">약 ${eq_time_min.toFixed(1)}분</strong></div>
     </div>`;
 
-    html += `<p style="font-size:0.7rem; color:var(--text-dim); margin-top:0.8rem;">ℹ️ 고지: 본 결과는 DIN 43671 및 AEC-Q 표준 기반의 물리 모델을 따르며, 실제 패키지 형상(AR=${ar})에 따른 방열 면적 보정이 완결되었습니다.</p>`;
+    html += `<p style="font-size:0.7rem; color:var(--text-dim); margin-top:0.8rem; line-height:1.4;">ℹ️ AEC-Q 표준 기반 물리 모델을 따르며, 실제 패키지 형상(AR=${ar})에 따른 방열 면적 보정이 완료되었습니다.</p>`;
 
     document.getElementById('insight-text').innerHTML = html;
 }

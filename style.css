@@ -13,7 +13,7 @@
     --shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.4);
 }
 
-/* 1. Global Reset for PERFECT FIT */
+/* 1. STRUCTURAL FIX: Absolute Horizontal Overflow Prevention */
 * {
     margin: 0;
     padding: 0;
@@ -49,13 +49,15 @@ body {
     padding: 0;
 }
 
-/* 2. Container Logic */
+/* 2. Responsive Container */
 #app {
     width: 100%;
     max-width: 1100px;
     padding: 1.5rem;
     position: relative;
     z-index: 1;
+    overflow: hidden;
+    /* Prevent inner overflow from escaping */
 }
 
 .calculator-card {
@@ -71,6 +73,7 @@ body {
     gap: 2.5rem;
     animation: fadeIn 0.8s ease-out;
     width: 100%;
+    max-width: 100%;
 }
 
 @keyframes fadeIn {
@@ -90,6 +93,7 @@ body {
     margin-bottom: 1.5rem;
     border-bottom: 1px solid var(--glass-border);
     padding-bottom: 1rem;
+    width: 100%;
 }
 
 h1 {
@@ -101,21 +105,11 @@ h1 {
     background-clip: text;
     -webkit-text-fill-color: transparent;
     letter-spacing: -0.02em;
+    word-break: keep-all;
+    /* Prevent awkward breaks in title */
 }
 
-.expert-tag {
-    display: inline-block;
-    padding: 0.3rem 0.8rem;
-    background: rgba(139, 92, 246, 0.1);
-    color: var(--primary-light);
-    border-radius: 99px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 0.8rem;
-}
-
+/* Category Tabs Scrollability */
 .category-tabs {
     display: flex;
     gap: 0.4rem;
@@ -124,11 +118,14 @@ h1 {
     padding: 0.25rem;
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.05);
+    width: 100%;
 }
 
 .tab-btn {
     flex: 1;
-    padding: 0.6rem;
+    min-width: 0;
+    /* Important for flex shrink */
+    padding: 0.6rem 0.2rem;
     border: none;
     background: transparent;
     color: var(--text-dim);
@@ -137,86 +134,66 @@ h1 {
     cursor: pointer;
     border-radius: 9px;
     transition: all 0.3s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .tab-btn.active {
     background: var(--primary);
     color: white;
-    box-shadow: 0 4px 10px rgba(139, 92, 246, 0.25);
 }
 
-/* 3. Inputs (Forcing 16px to Prevent Mobile Zoom) */
+/* Input Fields (Focus-safe Zoom prevention) */
 input,
-select,
-textarea {
+select {
     font-size: 16px !important;
-    /* STRICT: Prevent iOS zoom */
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid var(--glass-border);
     border-radius: 10px;
     padding: 0.65rem 0.9rem;
     color: white;
     width: 100%;
-    transition: all 0.2s ease;
+    max-width: 100%;
+    display: block;
 }
 
-input:focus,
-select:focus {
-    outline: none;
-    border-color: var(--primary);
-    background: rgba(255, 255, 255, 0.07);
-}
-
-/* 4. Layout Utilities */
-.grid-2-col {
+/* Layout Utilities */
+.grid-2-col,
+.grid-dur-current {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0.8rem;
-}
-
-.grid-dur-current {
-    display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    gap: 0.8rem;
+    width: 100%;
 }
 
 .duration-input-group {
     display: flex;
     align-items: center;
     gap: 0.6rem;
+    width: 100%;
 }
 
-.inf-label {
-    font-size: 0.75rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3rem;
-    cursor: pointer;
-    color: var(--text-dim);
-    white-space: nowrap;
-    flex-shrink: 0;
-    padding-right: 2px;
+.duration-input-group input {
+    flex: 1;
+    min-width: 0;
 }
 
 .expert-section {
     border-top: 1px solid rgba(255, 255, 255, 0.08);
     padding-top: 1.2rem;
     margin-top: 0.8rem;
+    width: 100%;
 }
 
-.expert-header {
-    color: var(--accent);
-    font-size: 0.75rem;
-    margin-bottom: 0.8rem;
-    text-transform: uppercase;
-}
-
+/* Charts and Lists */
 .chart-card {
     margin-top: 1rem;
     background: rgba(0, 0, 0, 0.2);
     padding: 1rem;
     border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.05);
+    width: 100%;
 }
 
 .chart-wrapper {
@@ -232,191 +209,154 @@ select:focus {
     gap: 0.4rem;
     font-size: 0.65rem;
     color: var(--text-dim);
-    text-align: center;
+    width: 100%;
 }
 
-/* 5. Result and Insights */
-.input-section {
-    display: flex;
-    flex-direction: column;
-    gap: 1.2rem;
-}
-
+/* Results and Insights */
 .result-section {
     background: rgba(0, 0, 0, 0.2);
     border-radius: 16px;
     padding: 1.5rem;
     border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.field {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-}
-
-label {
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: var(--text-dim);
-}
-
-.calculate-btn {
-    background: linear-gradient(135deg, var(--primary) 0%, #7C3AED 100%);
-    color: white;
-    border: none;
-    border-radius: 10px;
-    padding: 1rem;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-    margin-top: 0.5rem;
-    box-shadow: 0 8px 12px -3px rgba(124, 58, 237, 0.3);
     width: 100%;
-}
-
-.calculate-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 12px 16px -3px rgba(124, 58, 237, 0.35);
-}
-
-.result-box {
-    text-align: center;
-}
-
-.result-value {
-    font-size: 3.5rem;
-    font-weight: 800;
-    font-family: 'Outfit';
-    color: var(--success);
-    line-height: 1;
-    margin: 0.8rem 0;
-}
-
-.unit {
-    font-size: 1.1rem;
-    color: var(--text-dim);
 }
 
 .insight-box {
     margin-top: 1.5rem;
     padding-top: 1.5rem;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.insight-box h3 {
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 0.4rem;
+    width: 100%;
 }
 
 .insight-box p {
-    font-size: 0.9rem;
-    color: var(--text-dim);
-    line-height: 1.5;
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
 
-/* 6. Mobile Optimization (The "Force Fit" Block) */
+/* 7. REVOLUTIONARY MOBILE OVERFLOW FIX */
 @media (max-width: 900px) {
     .calculator-card {
         grid-template-columns: 1fr;
         padding: 2rem;
-        gap: 2rem;
     }
 }
 
 @media (max-width: 640px) {
     body {
         display: block;
+        padding: 0 !important;
     }
 
     #app {
         padding: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
         margin: 0 !important;
-        width: 100vw !important;
-        max-width: 100vw !important;
     }
 
     .calculator-card {
-        padding: 1.2rem 1rem !important;
+        padding: 1rem !important;
         border-radius: 0 !important;
-        gap: 1.2rem;
         border: none !important;
         background: var(--background) !important;
         width: 100% !important;
+        display: flex !important;
+        /* Switch to Flex to avoid grid quirks on tiny screens */
+        flex-direction: column;
+        overflow-x: hidden !important;
     }
 
     .header {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding-bottom: 1rem;
         margin-bottom: 1rem;
-        padding-bottom: 0.8rem;
     }
 
     h1 {
-        font-size: 1.6rem;
+        font-size: 1.5rem;
+        word-break: keep-all;
     }
 
-    /* Force grids to single column or very tight scaling */
     .grid-2-col,
     .grid-dur-current {
         grid-template-columns: 1fr !important;
         gap: 1.2rem;
+        width: 100% !important;
     }
 
-    .thermal-stats-grid {
-        grid-template-columns: repeat(3, 1fr) !important;
-        gap: 0.2rem;
-        font-size: 0.55rem;
-        /* Shrunk slightly to fit labels */
+    .field {
+        width: 100% !important;
     }
 
-    /* Extra safety for labels */
-    label {
-        font-size: 0.78rem;
-        width: 100%;
-        display: block;
-    }
-
-    /* Duration Specific Fix */
+    /* Duration Fix: Ensure it never pushes width */
     .duration-input-group {
-        width: 100%;
-        overflow: hidden;
+        flex-wrap: wrap;
+        /* Allow wrapping of Infinite label if necessary */
+        gap: 0.5rem;
     }
 
     .duration-input-group input {
-        width: 0;
-        flex: 1 1 auto;
-        min-width: 90px;
-        padding-left: 0.6rem;
-        padding-right: 0.4rem;
+        min-width: 80px;
+        flex: 1;
+    }
+
+    .inf-label {
+        font-size: 0.75rem;
+        white-space: nowrap;
+        padding: 0.3rem 0;
     }
 
     .result-section {
-        padding: 1.2rem 1rem !important;
-        margin-top: 1.5rem;
+        padding: 1.5rem 1rem !important;
+        margin-top: 1rem;
         border-radius: 0 !important;
         border: none !important;
-        background: rgba(255, 255, 255, 0.02) !important;
+        background: rgba(255, 255, 255, 0.03) !important;
         width: 100% !important;
     }
 
     .result-value {
-        font-size: 3rem;
+        font-size: 2.8rem;
     }
 
     .chart-card {
-        padding: 0.8rem 0;
-        margin-top: 1rem;
+        padding: 0.5rem 0 !important;
+        border: none !important;
+        background: transparent !important;
     }
 
     .chart-wrapper {
-        height: 150px !important;
+        height: 160px !important;
+    }
+
+    .thermal-stats-grid {
+        grid-template-columns: 1fr !important;
+        /* Stack stats vertically on small mobile */
+        gap: 0.3rem;
+        text-align: left;
+        background: rgba(0, 0, 0, 0.2);
+        padding: 0.5rem;
+        border-radius: 6px;
+    }
+
+    .thermal-stats-grid div {
+        font-size: 0.7rem;
+    }
+
+    footer {
         width: 100% !important;
+        margin-top: 1rem !important;
+        padding: 1rem !important;
+    }
+}
+
+/* Ultra small screen fix (iPhone SE etc) */
+@media (max-width: 360px) {
+    .category-tabs {
+        flex-direction: column;
     }
 
     .tab-btn {
-        padding: 0.7rem 0.4rem;
-        font-size: 0.8rem;
+        width: 100%;
     }
 }
