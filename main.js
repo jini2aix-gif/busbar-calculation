@@ -40,6 +40,7 @@ function init() {
     bindEvents();
     setupChart();
     disableMobileZoom();
+    forceLayoutFit();
 }
 
 function disableMobileZoom() {
@@ -59,6 +60,20 @@ function disableMobileZoom() {
         }
         lastTouchEnd = now;
     }, false);
+}
+
+function forceLayoutFit() {
+    // Force viewport update on load and orientation change
+    const updateFit = () => {
+        document.documentElement.style.width = '100vw';
+        document.body.style.width = '100vw';
+        window.scrollTo(0, 0); // Reset position
+    };
+
+    window.addEventListener('resize', updateFit);
+    window.addEventListener('load', updateFit);
+    // Extra insurance: Check after 500ms (after browser bars settle)
+    setTimeout(updateFit, 500);
 }
 
 function setupChart() {
