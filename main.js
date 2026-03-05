@@ -39,6 +39,26 @@ let graphInterval = null; // Interval for progressive drawing
 function init() {
     bindEvents();
     setupChart();
+    disableMobileZoom();
+}
+
+function disableMobileZoom() {
+    // 1. Prevent multi-touch (pinch) zoom
+    document.addEventListener('touchstart', (e) => {
+        if (e.touches.length > 1) {
+            e.preventDefault();
+        }
+    }, { passive: false });
+
+    // 2. Prevent double-tap zoom (JS fallback for older browsers)
+    let lastTouchEnd = 0;
+    document.addEventListener('touchend', (e) => {
+        const now = (new Date()).getTime();
+        if (now - lastTouchEnd <= 300) {
+            e.preventDefault();
+        }
+        lastTouchEnd = now;
+    }, false);
 }
 
 function setupChart() {
