@@ -387,7 +387,9 @@ label {
     .duration-input-group input {
         width: 0;
         flex: 1 1 auto;
-        min-width: 50px;
+        min-width: 90px;
+        padding-left: 0.6rem;
+        padding-right: 0.4rem;
     }
 
     .result-section {
