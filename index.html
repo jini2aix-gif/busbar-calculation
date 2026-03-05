@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Busbar Designer PRO | 제니의 30년 설계 노하우</title>
+    <link rel="stylesheet" href="./style.css">
+    <meta name="description" content="전기차 배터리팩 및 PRA를 위한 전문 버스바 단면적 계산기. 30년 경력 제니의 인사이트 탑재.">
+</head>
+<body>
+    <div id="app">
+        <div class="calculator-card">
+            <div class="header">
+                <div class="expert-tag">30 Years Experience • EV Power Systems</div>
+                <h1>Busbar Cross-Section Optimizer</h1>
+            </div>
+
+            <div class="input-section">
+                <div class="field">
+                    <label for="current">연속 전류 (Continuous Current, Arms)</label>
+                    <input type="number" id="current" value="250" step="10">
+                </div>
+
+                <div class="field">
+                    <label for="ambient">주변 온도 (Ambient Temperature, °C)</label>
+                    <input type="number" id="ambient" value="45" step="5">
+                </div>
+
+                <div class="field">
+                    <label for="temp-limit">목표 온도 상승량 (Target Rise, ΔT °C)</label>
+                    <input type="number" id="limit" value="40" step="1">
+                </div>
+
+                <div class="field">
+                    <label for="material">버스바 소재 (Material)</label>
+                    <select id="material">
+                        <option value="C1100">C1100 (ETP Copper - 100% IACS)</option>
+                        <option value="C1020">C1020 (OFC - 101% IACS)</option>
+                        <option value="Aluminum">Aluminum (61% IACS)</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="cooling">냉각 조건 (Cooling Condition)</label>
+                    <select id="cooling">
+                        <option value="1.0">자연 대류 (Natural Convection)</option>
+                        <option value="1.5">강제 송풍 (Forced Air)</option>
+                        <option value="0.8">밀폐 케이스 내부 (Enclosed Case)</option>
+                    </select>
+                </div>
+
+                <button class="calculate-btn" id="calculate">규격 자동 산출하기</button>
+            </div>
+
+            <div class="result-section">
+                <div class="result-box">
+                    <label>Suggested Cross-Section</label>
+                    <div class="result-value" id="result-area">0.0</div>
+                    <div class="unit">mm²</div>
+                </div>
+
+                <div class="insight-box">
+                    <h3>Jenny's Expert Insight</h3>
+                    <p id="insight-text">데이터를 입력하고 버튼을 눌러주세요. 배터리팩의 가혹한 환경을 고려한 최적의 단면적을 제안해 드립니다.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="./main.js"></script>
+</body>
+</html>
