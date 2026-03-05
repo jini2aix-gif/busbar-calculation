@@ -38,7 +38,47 @@ let graphInterval = null; // Interval for progressive drawing
 
 function init() {
     bindEvents();
-    // Initially empty - only calculates on button click
+    setupChart();
+}
+
+function setupChart() {
+    const ctx = document.getElementById('tempChart').getContext('2d');
+    tempChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'Temp (°C)',
+                data: [],
+                borderColor: '#FFD700',
+                backgroundColor: 'rgba(255, 215, 0, 0.1)',
+                fill: true,
+                tension: 0.3,
+                pointRadius: 0,
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: false,
+            scales: {
+                x: {
+                    title: { display: true, text: 'Time (min)', color: '#888', font: { size: 10 } },
+                    grid: { color: 'rgba(255,255,255,0.05)' },
+                    ticks: { color: '#666', font: { size: 9 } }
+                },
+                y: {
+                    title: { display: true, text: 'Temp (°C)', color: '#888', font: { size: 10 } },
+                    grid: { color: 'rgba(255,255,255,0.05)' },
+                    ticks: { color: '#666', font: { size: 9 } },
+                    suggestedMin: 25,
+                    suggestedMax: 80
+                }
+            },
+            plugins: { legend: { display: false } }
+        }
+    });
 }
 
 function bindEvents() {
@@ -199,46 +239,15 @@ function displayThermalGraph(I, SQ, tamb, dt_limit, mat, plat, k_cool, k_mount, 
     document.getElementById('sat-time').textContent = Math.round(tau * 5 / 60);
     document.getElementById('sat-temp').textContent = (tamb + dt_sat).toFixed(1);
 
-    // 3. Setup Chart with EMPTY data
-    const ctx = document.getElementById('tempChart').getContext('2d');
-    if (tempChart) tempChart.destroy();
+    // 3. Update Chart
+    if (graphInterval) clearInterval(graphInterval);
 
-    tempChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: [],
-            datasets: [{
-                label: 'Temp (°C)',
-                data: [],
-                borderColor: '#FFD700',
-                backgroundColor: 'rgba(255, 215, 0, 0.1)',
-                fill: true,
-                tension: 0.3,
-                pointRadius: 0,
-                borderWidth: 2
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            animation: false, // Turn off default animation to use manual progressive draw
-            scales: {
-                x: {
-                    title: { display: true, text: 'Time (min)', color: '#888', font: { size: 10 } },
-                    grid: { color: 'rgba(255,255,255,0.05)' },
-                    ticks: { color: '#666', font: { size: 9 } }
-                },
-                y: {
-                    title: { display: true, text: 'Temp (°C)', color: '#888', font: { size: 10 } },
-                    grid: { color: 'rgba(255,255,255,0.05)' },
-                    ticks: { color: '#666', font: { size: 9 } },
-                    suggestedMin: tamb,
-                    suggestedMax: tamb + dt_sat + 5
-                }
-            },
-            plugins: { legend: { display: false } }
-        }
-    });
+    // Reset data but keep scales
+    tempChart.data.labels = [];
+    tempChart.data.datasets[0].data = [];
+    tempChart.options.scales.y.suggestedMin = tamb;
+    tempChart.options.scales.y.suggestedMax = tamb + dt_sat + 5;
+    tempChart.update('none');
 
     // 4. Progressive Drawing Interval
     let index = 0;
