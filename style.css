@@ -21,8 +21,8 @@
 
 body {
     font-family: 'Inter', sans-serif;
-    background: radial-gradient(circle at top right, #1E1B4B, #0F172A), 
-                radial-gradient(circle at bottom left, #312E81, #0F172A);
+    background: radial-gradient(circle at top right, #1E1B4B, #0F172A),
+        radial-gradient(circle at bottom left, #312E81, #0F172A);
     color: var(--text);
     min-height: 100vh;
     display: flex;
@@ -54,8 +54,15 @@ body {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .header {
@@ -89,6 +96,41 @@ h1 {
     margin-bottom: 1rem;
 }
 
+.category-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 0.3rem;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 0.7rem;
+    border: none;
+    background: transparent;
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.tab-btn.active {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+}
+
+.tab-btn:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+}
+
+
 /* Layout */
 .input-section {
     display: flex;
@@ -119,7 +161,8 @@ label {
     color: var(--text-dim);
 }
 
-input, select {
+input,
+select {
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid var(--glass-border);
     border-radius: 12px;
@@ -129,11 +172,19 @@ input, select {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-input:focus, select:focus {
+input:focus,
+select:focus {
     outline: none;
     border-color: var(--primary);
     background: rgba(255, 255, 255, 0.08);
     box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.15);
+}
+
+/* Fix dropdown text visibility on Windows/various browsers */
+select option {
+    background-color: #1e293b;
+    /* --surface equivalent without alpha */
+    color: white;
 }
 
 /* Action Button */

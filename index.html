@@ -1,66 +1,213 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Busbar Designer PRO | 제니의 30년 설계 노하우</title>
+    <title>Busbar Optimizer PRO | 설계3팀 전장시스템 설계파트</title>
     <link rel="stylesheet" href="./style.css">
-    <meta name="description" content="전기차 배터리팩 및 PRA를 위한 전문 버스바 단면적 계산기. 30년 경력 제니의 인사이트 탑재.">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <meta name="description" content="설계3팀 전장시스템 설계파트 전문 버스바 단면적 시뮬레이터.">
 </head>
+
 <body>
     <div id="app">
         <div class="calculator-card">
             <div class="header">
-                <div class="expert-tag">30 Years Experience • EV Power Systems</div>
-                <h1>Busbar Cross-Section Optimizer</h1>
+                <div class="expert-tag">설계3팀 전장시스템 설계파트</div>
+                <h1>Busbar Optimizer Pro <small style="font-size: 0.5em; opacity: 0.7;">(Physics-Based Balance)</small>
+                </h1>
+
+                <div class="category-tabs">
+                    <button class="tab-btn active" data-category="battery">배터리팩 버스바</button>
+                    <button class="tab-btn" data-category="pra">PRA / BDU 버스바</button>
+                </div>
             </div>
 
             <div class="input-section">
-                <div class="field">
-                    <label for="current">연속 전류 (Continuous Current, Arms)</label>
-                    <input type="number" id="current" value="250" step="10">
+                <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 1rem;">
+                    <div class="field">
+                        <label for="current">부하 전류 (Load Current, Arms)</label>
+                        <input type="number" id="current" value="250" step="10">
+                    </div>
+                    <div class="field">
+                        <label for="duration">부하 시간 (Duration, sec)</label>
+                        <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.2rem;">
+                            <input type="number" id="duration" value="3600" min="1" style="flex: 1;">
+                            <label
+                                style="font-size: 0.7rem; display: flex; align-items: center; gap: 0.2rem; cursor: pointer; color: var(--text-dim);">
+                                <input type="checkbox" id="continuous" checked> 무한(Inf)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="field">
+                        <label for="ambient">주변 온도 (Ambient, °C)</label>
+                        <input type="number" id="ambient" value="45" step="5">
+                    </div>
+                    <div class="field">
+                        <label for="limit">목표 온도 상승량 (ΔT, °C)</label>
+                        <input type="number" id="limit" value="40" step="1">
+                    </div>
                 </div>
 
                 <div class="field">
-                    <label for="ambient">주변 온도 (Ambient Temperature, °C)</label>
-                    <input type="number" id="ambient" value="45" step="5">
-                </div>
-
-                <div class="field">
-                    <label for="temp-limit">목표 온도 상승량 (Target Rise, ΔT °C)</label>
-                    <input type="number" id="limit" value="40" step="1">
-                </div>
-
-                <div class="field">
-                    <label for="material">버스바 소재 (Material)</label>
+                    <label for="material">도체 소재 (Conductor)</label>
                     <select id="material">
-                        <option value="C1100">C1100 (ETP Copper - 100% IACS)</option>
+                        <option value="C1100">C1100 (Copper - 100% IACS)</option>
                         <option value="C1020">C1020 (OFC - 101% IACS)</option>
                         <option value="Aluminum">Aluminum (61% IACS)</option>
                     </select>
                 </div>
 
                 <div class="field">
-                    <label for="cooling">냉각 조건 (Cooling Condition)</label>
-                    <select id="cooling">
-                        <option value="1.0">자연 대류 (Natural Convection)</option>
-                        <option value="1.5">강제 송풍 (Forced Air)</option>
-                        <option value="0.8">밀폐 케이스 내부 (Enclosed Case)</option>
+                    <label for="plating">표면 처리 및 절연 (Surface & Insulation)</label>
+                    <select id="plating">
+                        <option value="bare">Bare Copper (Low e: 0.4)</option>
+                        <option value="tin">Tin Plated (Low e: 0.2)</option>
+                        <option value="silver">Silver Plated (Low e: 0.05)</option>
+                        <option value="nickel">Nickel Plated (Low e: 0.2)</option>
+                        <option value="heat-shrink">PVC Heat-shrink Tubing (High e: 0.9)</option>
+                        <option value="epoxy">Epoxy Powder Coating (High e: 0.95)</option>
                     </select>
                 </div>
 
-                <button class="calculate-btn" id="calculate">규격 자동 산출하기</button>
+                <div class="field">
+                    <label for="aspect-ratio">버스바 종횡비 (Aspect Ratio, W:T)</label>
+                    <input type="number" id="aspect-ratio" value="5" min="1" max="25" step="1">
+                    <small style="color:var(--text-dim); font-size:0.75rem;">※ 가로:두께 비율 (높을수록 방열 효율 증가)</small>
+                </div>
+
+
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="field">
+                        <label for="cooling">패키지 밀폐도 (IP Rating)</label>
+                        <select id="cooling">
+                            <option value="1.0">External Open (외기 노출)</option>
+                            <option value="0.85">IP20/IP54 (통풍 박스 내부)</option>
+                            <option value="0.7">IP67 (완전 밀폐 BDU/팩 내부)</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="mounting">배치 방향 (Orientation)</label>
+                        <select id="mounting">
+                            <option value="1.0">수직 (Edge-wise Vertical)</option>
+                            <option value="0.85">수평 (Flat-wise Horizontal)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="altitude">설치 고도 (Altitude, m)</label>
+                    <input type="number" id="altitude" value="0" min="0" max="8000" step="100">
+                </div>
+
+                <!-- PRA / BDU Specific Section -->
+                <div id="pra-section"
+                    style="display: none; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem; margin-top: 0.5rem;">
+                    <h4
+                        style="color: var(--accent); font-size: 0.8rem; margin-bottom: 1rem; text-transform: uppercase;">
+                        Passive Component Heat (PRA/BDU 전용)</h4>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="field">
+                            <label for="relays">릴레이 개수 (0.5mΩea)</label>
+                            <input type="number" id="relays" value="2" min="0">
+                        </div>
+                        <div class="field">
+                            <label for="fuses">퓨즈 개수 (PEC)</label>
+                            <input type="number" id="fuses" value="1" min="0">
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="field">
+                            <label for="bdu-width">BDU 가로 (Width, mm)</label>
+                            <input type="number" id="bdu-width" value="300" min="50">
+                        </div>
+                        <div class="field">
+                            <label for="bdu-depth">BDU 세로 (Depth, mm)</label>
+                            <input type="number" id="bdu-depth" value="250" min="50">
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="field">
+                            <label for="bdu-height">BDU 높이 (Height, mm)</label>
+                            <input type="number" id="bdu-height" value="100" min="30">
+                        </div>
+                        <div class="field">
+                            <label for="bdu-material">BDU 케이스 재질</label>
+                            <select id="bdu-material">
+                                <option value="aluminum">Aluminum (High Heat Diss.)</option>
+                                <option value="plastic">Plastic (Insulated/Sealed)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label for="fuse-rating">퓨즈 용량 선택 (A) - PEC EV Series</label>
+                        <select id="fuse-rating">
+                            <option value="50">50A (2.00 mΩ)</option>
+                            <option value="100">100A (0.75 mΩ)</option>
+                            <option value="200">200A (0.39 mΩ)</option>
+                            <option value="300">300A (0.25 mΩ)</option>
+                            <option value="400">400A (0.19 mΩ)</option>
+                            <option value="500">500A (0.16 mΩ)</option>
+                            <option value="600">600A (0.14 mΩ)</option>
+                            <option value="800">800A (0.10 mΩ)</option>
+                            <option value="1000">1000A (0.088 mΩ)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Automotive Standard Reliability Section (Hidden Pro Factors) -->
+                <div id="automotive-section"
+                    style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem; margin-top: 1rem;">
+                    <h4
+                        style="color: var(--accent); font-size: 0.8rem; margin-bottom: 1rem; text-transform: uppercase;">
+                        Automotive Design Standard</h4>
+
+                    <div class="field">
+                        <label for="line-len">버스바 경로 총 길이 (Path Length, m)</label>
+                        <input type="number" id="line-len" value="0.5" min="0.1" step="0.1">
+                        <small style="color:var(--text-dim); display:block; margin-top:0.3rem; font-size:0.7rem;">※
+                            단락전류(25kA/100ms), 전압강하(1.5%), 볼트홀 손실(M8 기준) 등 자동차 표준(AEC-Q/IEC 61439 등)이 백엔드에 통합
+                            관리됩니다.</small>
+                    </div>
+                </div>
+
+                <button class="calculate-btn" id="calculate">단면적 계산</button>
             </div>
 
             <div class="result-section">
                 <div class="result-box">
-                    <label>Suggested Cross-Section</label>
+                    <label>Recommended Cross-Section</label>
                     <div class="result-value" id="result-area">0.0</div>
-                    <div class="unit">mm²</div>
+                    <div class="unit">SQ (mm²)</div>
+                </div>
+
+                <!-- Moved Temperature Rise Graph Section (Between Result and Insight) -->
+                <div id="graph-container"
+                    style="margin-top: 1.5rem; background: rgba(0,0,0,0.2); padding: 1.2rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); display: none;">
+                    <h3 style="color: var(--accent); font-size: 0.85rem; margin-bottom: 0.8rem;">Temperature Saturation
+                        Profile</h3>
+                    <div style="height: 220px; position: relative;">
+                        <canvas id="tempChart"></canvas>
+                    </div>
+                    <div id="thermal-stats"
+                        style="margin-top: 1rem; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem; font-size: 0.7rem; color: var(--text-dim); text-align: center;">
+                        <div>열 시상수(τ): <span id="tau-val" style="color: var(--text);">0</span>s</div>
+                        <div>평형(5τ): <span id="sat-time" style="color: var(--text);">0</span>min</div>
+                        <div>포화 온도: <span id="sat-temp" style="color: var(--text);">0</span>°C</div>
+                    </div>
                 </div>
 
                 <div class="insight-box">
-                    <h3>Jenny's Expert Insight</h3>
+                    <h3>시스템 설계 파트 전문 인사이트</h3>
                     <p id="insight-text">데이터를 입력하고 버튼을 눌러주세요. 배터리팩의 가혹한 환경을 고려한 최적의 단면적을 제안해 드립니다.</p>
                 </div>
             </div>
@@ -68,4 +215,5 @@
     </div>
     <script type="module" src="./main.js"></script>
 </body>
+
 </html>
