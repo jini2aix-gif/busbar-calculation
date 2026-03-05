@@ -163,12 +163,17 @@ h1 {
 }
 
 .inf-label {
-    font-size: 0.7rem;
+    font-size: 0.8rem;
+    /* Slightly larger for touch */
     display: flex;
     align-items: center;
-    gap: 0.2rem;
+    gap: 0.3rem;
     cursor: pointer;
     color: var(--text-dim);
+    white-space: nowrap;
+    /* Prevent wrapping */
+    flex-shrink: 0;
+    /* Don't squash me */
 }
 
 .expert-section {
@@ -395,6 +400,13 @@ select option {
     .calculate-btn {
         padding: 1.1rem;
         font-size: 1rem;
+    }
+
+    /* Duration field specific fix */
+    .duration-input-group input {
+        width: auto;
+        /* Reset 100% width to allow flex-grow */
+        min-width: 0;
     }
 
     .tab-btn {
