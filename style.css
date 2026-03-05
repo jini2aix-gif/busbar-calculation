@@ -359,7 +359,8 @@ select:focus {
     select,
     .calculate-btn {
         padding: 0.9rem;
-        font-size: 0.95rem;
+        font-size: 1rem;
+        /* Force 16px to prevent iOS auto-zoom */
     }
 
     /* Duration field: Prevent clipping of 'Infinite(Inf)' on tiny screens */
